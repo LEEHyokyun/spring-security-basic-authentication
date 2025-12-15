@@ -26,8 +26,8 @@ public class FormAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         if(savedRequest != null){
             String redirectUrl = savedRequest.getRedirectUrl();
             redirectStrategy.sendRedirect(request, response, redirectUrl);
+        }else{
+            redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
         }
-
-        redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
     }
 }
