@@ -19,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import spring.security.basic.authentication.auth.config.handler.denied.FormAccessDeniedHandler;
 
 @Slf4j
 @EnableWebSecurity
@@ -46,6 +47,9 @@ public class SecurityConfig {
                         .permitAll())
                 //.userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider)
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(new FormAccessDeniedHandler("/denied"))
+                )
         ;
 
         //th:action="@{/login} method=post" --csrf

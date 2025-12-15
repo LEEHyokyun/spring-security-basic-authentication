@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -60,4 +61,17 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("/denied")
+    public String denied(
+            @RequestParam(value = "exception", required = false) String exception,
+            @AuthenticationPrincipal UserInfomation userInformation,
+            Model model
+    ){
+        model.addAttribute("error", exception);
+        model.addAttribute("userInformation", userInformation);
+        model.addAttribute("user", userInformation);
+        model.addAttribute("userId", userInformation.getId());
+
+        return "denied";
+    }
 }
