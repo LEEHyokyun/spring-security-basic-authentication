@@ -1,5 +1,8 @@
 package spring.security.basic.authentication.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,13 +28,4 @@ public class HomeController {
         return "admin";
     }
 
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
-
-    @GetMapping("/signup")
-    public String signup(){
-        return "signup";
-    }
 }

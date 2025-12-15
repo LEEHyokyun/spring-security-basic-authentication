@@ -24,3 +24,11 @@
 
 - authentication provider는 내부적으로 customized userDetailsService를 참조
 - provider의 supports에 부합하면 authenticate 진행
+
+## 4. customized logout
+
+- customized login
+- customized logout을 통한 처리(*GetMapping/PostMapping 모두 가능, postMapping을 강력 권장)
+- 로그인 : sec:authroize="isAnonymous()", 로그아웃 : sec:authorize="isAuthenticated()"
+  - xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+  - thymleaf에서 제공하는 springsecurity 전용 표현식(sec:authroize = {...}) 등 활용
