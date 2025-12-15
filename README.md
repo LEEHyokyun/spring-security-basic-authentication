@@ -32,3 +32,8 @@
 - 로그인 : sec:authroize="isAnonymous()", 로그아웃 : sec:authorize="isAuthenticated()"
   - xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
   - thymleaf에서 제공하는 springsecurity 전용 표현식(sec:authroize = {...}) 등 활용
+
+# 5. authentication details
+
+- 기본 id/password 뿐만 아니라, 사용자 IP주소 및 session id 등을 저장하는 곳.
+- setDetails

@@ -1,9 +1,11 @@
 package spring.security.basic.authentication.auth.config;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 @Slf4j
 @EnableWebSecurity
@@ -23,6 +26,7 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final AuthenticationProvider authenticationProvider;
+    private final AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,7 +35,9 @@ public class SecurityConfig {
                 .requestMatchers("/", "/signup").permitAll()
                 .anyRequest().authenticated()
         )
-                .formLogin(form -> form.loginPage("/login").permitAll())
+                .formLogin(form -> form.loginPage("/login")
+                        .authenticationDetailsSource(authenticationDetailsSource)
+                        .permitAll())
                 //.userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider)
         ;
