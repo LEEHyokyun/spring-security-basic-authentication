@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
@@ -29,17 +30,19 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/images/**", "/js/**", "/webjars/**", "/favicon/**", "/*/icon/-*").permitAll()
-                .requestMatchers("/", "/signup").permitAll()
+                .requestMatchers("/", "/login", "/login*", "/signup").permitAll()
                 .anyRequest().authenticated()
         )
                 .formLogin(form -> form.loginPage("/login")
                         .authenticationDetailsSource(authenticationDetailsSource)
                         .successHandler(authenticationSuccessHandler)
+                        .failureHandler(authenticationFailureHandler)
                         .permitAll())
                 //.userDetailsService(userDetailsService)
                 .authenticationProvider(authenticationProvider)

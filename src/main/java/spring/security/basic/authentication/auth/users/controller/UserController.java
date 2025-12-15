@@ -8,10 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import spring.security.basic.authentication.auth.users.domain.entity.Account;
 import spring.security.basic.authentication.auth.users.domain.vo.UserInfomation;
 import spring.security.basic.authentication.auth.users.service.UserService;
@@ -51,7 +49,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login(
+            @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "exception", required = false) String exception,
+            Model model
+    ){
+        //give to thymeleaf
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "login";
     }
 
