@@ -1,5 +1,6 @@
 package spring.security.basic.authentication.auth.users.domain.context;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

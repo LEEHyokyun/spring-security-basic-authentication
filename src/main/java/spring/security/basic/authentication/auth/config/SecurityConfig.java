@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         )
                 .formLogin(form -> form.loginPage("/login").permitAll())
-                .userDetailsService(userDetailsService)
+                //.userDetailsService(userDetailsService)
+                .authenticationProvider(authenticationProvider)
         ;
 
         //th:action="@{/login} method=post" --csrf

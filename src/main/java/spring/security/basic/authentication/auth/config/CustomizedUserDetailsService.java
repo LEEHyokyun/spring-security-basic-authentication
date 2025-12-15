@@ -1,4 +1,4 @@
-package spring.security.basic.authentication.auth.users.service;
+package spring.security.basic.authentication.auth.config;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
